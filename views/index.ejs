@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Crypto</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+</head>
+
+<body >
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-vector/gradient-dark-dynamic-lines-background_23-2148995950.jpg?w=740&t=st=1689703281~exp=1689703881~hmac=cfef30d546710a51e7ae055803a58044736c59987c7a7e45c287adad82dede5c');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .custom-select {
+            position: relative;
+            display: block;
+            max-width: 400px;
+            min-width: 280px;
+            margin: 0 auto;
+            border: 1px solid #5b29b6;
+            background-color: #16013E;
+            z-index: 10;
+        }
+        .custom-select:hover {
+            background: linear-gradient(#222, #222), 
+              linear-gradient(to right, red, purple);
+            background-origin: padding-box, border-box;
+            background-repeat: no-repeat;
+            border: 1px solid transparent;
+        }
+        .custom-select:hover::after {
+            background: linear-gradient(#222, #222), 
+              linear-gradient(to right, red, purple);
+            background-origin: padding-box, border-box;
+            background-repeat: no-repeat;
+            border-left: 1px solid transparent;
+        }
+        .custom-select select {
+            border: none;
+            outline: none;
+            background: transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0;
+            margin: 0;
+            display: block;
+            width: 100%;
+            padding: 12px 55px 15px 15px;
+            font-size: 14px;
+            color: #4bb2b9; }
+        .custom-select:after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50px;
+            height: 100%;
+            line-height: 50px;
+            content: '\25BC';
+            text-align: center;
+            color: #714BB9;
+            font-size: 24px;
+            border-left: 1px solid #5b29b6;
+            z-index: -1;
+        }
+        .column-1 {
+            width: 80%;
+            align-content: center;
+            text-align: center;
+            margin-top: 16px;
+            margin-left: 276px;
+        }
+        .card {
+            box-shadow: 0 2px 8px 3px rgba(240, 184, 31, 0.829);
+            transition: 0.3s;
+            background-color: #08053a;
+            width: 180px;
+            height: 78px;
+            border: 2px solid rgba(114, 207, 7, 0.623);
+            text-align: center;
+            border-radius: 5px;
+            justify-content: center;
+            position: relative;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(255, 1, 1, 0.2);
+            border:2px solid rgba(255, 1, 1, 0.2);
+            transform: scale(1.1);
+        }
+        .align-center {
+            padding-top: 15px;
+        }
+        h6, p {
+            font-size: 18px;
+        }
+        footer {
+		    background-color: rgb(37, 11, 58);
+		    color: #fff;
+		    padding: 30px;
+		    text-align: center;
+            font-size: larger;
+	    }
+    </style>
+    <header>
+        <div>
+            <nav style="background-color: #1A004A; color: white; height: 13vh; align-content: center;">
+                <div style="display: flex;">
+                    <div class="column-1">
+                        <h1 class="font-effect-neon" style="font-size: 39px; font-family: 'Sofia', sans-serif;">KNOW UR CRYPTO</h1>
+                    </div>
+                    <div style="margin-top: 22px;">
+                        <form method="post" class="custom-select">
+                            <select name='selectCoin' onchange='this.form.submit()'>
+                                <option>Select Currency</option>
+                                <option value="avalanche-2">Avalanche (AVAX)</option>
+                                <option value="binancecoin">Binance (BNB)</option>
+                                <option value="bitcoin">Bitcoin (BTC) </option>
+                                <option value="cardano">Cardano (ADA)</option>
+                                <option value="decentraland">Decentraland (MANA)</option>
+                                <option value="dogecoin">Dogecoin (DOGE)</option>
+                                <option value="ethereum">Ethereum (ETH)</option>
+                                <option value="ripple">Ripple (XRP)</option>
+                                <option value="solana">Solana (SOL)</option>
+                                <option value="tether">Tether (USDT)</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div style="text-align: center; font-size: 39px; color: rgb(0, 255, 34);">
+            <p style="font-size: 28px; padding-top: 14px; padding-bottom: 14px; font-family: 'Sofia', sans-serif;">Dashboard Of <%- mData.name %></p>
+        </div> 
+        <section>
+            <div style="display: flex;">
+                <div style="width: 55vw;">
+                    <div id="chart1"></div>
+                </div>
+                <section style="width: 20vw; padding-left: 45px;"> 
+                    <div style="color: #ff04c0;">
+                        <h6 style="font-size: 28px;"> Current Price</h6>
+                        <p style="font-size: 28px; padding-left: 20%; color: #fff;">
+                            $<%- mData.market_data.current_price.usd %>
+                        </p>
+                    </div>
+                    <br>
+                    <div class="align-center">
+                        <h6 style="color: rgb(20, 240, 20);">All Time High</h6>
+                        <p style="color: #fff;">
+                            $ <%- mData.market_data.ath.usd %>
+                        </p>
+                    </div>
+                    <br>
+                    <div>
+                        <div class="align-center">
+                            <h6 style="color: rgb(247, 1, 1);">All Time Low</h6>
+                            <p style="color: #fff;">
+                                $ <%- mData.market_data.atl.usd %>
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="align-center">
+                        <h6 style="color: rgb(247, 112, 1);"> Price Changes In 24hrs </h6>
+                        <p style="color: #fff;">
+                            $ <%- mData.market_data.price_change_24h_in_currency.usd %>
+                        </p>
+                    </div>
+                    <br>
+                    <div class="align-center">
+                        <h6 style="color: rgb(20, 240, 20);"> High In 24Hrs </h6>
+                        <p style="color: #fff;">
+                            $ <%- mData.market_data.high_24h["usd"] %>
+                        </p>
+                    </div>
+                    <div class="align-center">
+                        <h6 style="color: rgb(247, 1, 1);"> Low In 24Hrs </h6>
+                        <p style="color: #fff;">
+                            $ <%- mData.market_data.low_24h["usd"] %>
+                        </p>
+                    </div>
+                </section>
+                <div class="char" style="width: 25vw;">
+                    <div id="chart4"></div>
+                </div>
+            </div>
+            <br>
+            <section style="color: #fff; display: flex;">
+                <div style="padding-left: 10px; padding-top: 30px;">
+                    <div class="card align-center">
+                        <div class="bg">
+                            <h6>Market Cap In 24Hrs</h6>
+                            <p>
+                                <%- mData.market_data.market_cap_change_percentage_24h %> %
+                            </p>
+                        </div>
+                        <div class="blob"></div>
+                    </div>
+                    <br>
+                    <div class="card align-center">
+                        <h6> Market Cap </h6>
+                        <p>
+                            $ <%- mData.market_data.market_cap.usd %>
+                        </p>
+                    </div>
+                </div>
+                <span id="chart2" style="padding-left: 20px;"></span>
+                <div style="padding-left: 50px; padding-top: 30px;">
+                    <div class="card align-center">
+                        <h6> Total Volume </h6>
+                        <p>
+                            $ <%- mData.market_data.total_volume.usd %>
+                        </p>
+                    </div>
+                    <br>
+                    <div class="card align-center">
+                        <h6> Circulating Supply</h6>
+                        <p>
+                            <%- mData.market_data["circulating_supply"] %>
+                        </p>
+                    </div>
+                </div>
+                <span id="chart3" style="padding-left: 20px;"></span>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Know your Crypto. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let mPriceData = '<%- JSON.stringify(mChart.prices) %>'
+        mPriceData = String(mPriceData)
+        mPriceData = JSON.parse(mPriceData)
+        var options = {
+            chart: {
+                height: 400,
+                width: 750,
+                type: 'area',
+                foreColor: "#00ffea"
+            },
+            grid: {
+                show: false
+            },
+            title: {
+                text: "Market Price ($)",
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: '#00ffea'
+                }
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            series: [{
+                name: 'Market Price',
+                data: mPriceData
+            }
+            ],
+            xaxis: {
+                type: "datetime"
+            },
+            dataLabels: {
+                enabled: false
+            },
+            yaxis: {
+                show: false
+            },
+            colors: ["#00ffea", "#00ffea"],
+            tooltip: {
+                y: {
+                    formatter: (value) => { return value.toFixed(2) }
+                },
+                theme: "dark"
+            }
+        }
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+            chart.render();
+    </script>
+    <script>
+        let mCapData = '<%- JSON.stringify(mChart.market_caps) %>'
+        mCapData = String(mCapData)
+        mCapData = JSON.parse(mCapData)
+        var options = {
+            chart: {
+                height: 250,
+                width: 430,
+                type: 'area',
+                foreColor: "#ff69f5"
+            },
+            grid: {
+                show: false
+            },
+            theme: {
+                mode: 'dark'
+            },
+            series: [{
+                name: 'Market Cap (USD)',
+                data: mCapData,
+            }
+            ],
+            xaxis: {
+                type: "datetime"
+            },
+            dataLabels: {
+                enabled: false
+            },
+            theme: {
+                mode: 'light',
+                palette: 'palette1',
+                monochrome: {
+                    enabled: false,
+                    color: '#255aee',
+                    shadeTo: 'light',
+                    shadeIntensity: 0.65
+                },
+            },
+            title: {
+                text: "Market Capitalization ($)",
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: '#ff69f5'
+                }
+            },
+            yaxis: [{
+                show: false,
+            }
+            ],
+            colors: ["#ff69f5"],
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val
+                    }
+                },
+                theme: "dark"
+            }
+        }
+        var chart = new ApexCharts(document.querySelector("#chart2"), options);
+            chart.render();
+    </script>
+    <script>
+        let mVolData = '<%- JSON.stringify(mChart.total_volumes) %>'
+        mVolData = String(mVolData)
+        mVolData = JSON.parse(mVolData)
+        var options = {
+            chart: {
+                height: 250,
+                width: 430,
+                type: 'area',
+                foreColor: "#ffff00"
+            },
+            theme: {
+                mode: 'dark'
+            },
+            grid: {
+                show: false
+            },
+            title: {
+                text: "Market Volume",
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: '#ffff00'
+                }
+            },
+            series: [{
+                name: 'Market Volume',
+                data: mVolData,
+            }
+            ],
+            xaxis: {
+                type: "datetime"
+            },
+            dataLabels: {
+                enabled: false
+            },
+            yaxis: [{
+                show: false,
+            }
+            ],
+            theme: {
+                mode: 'light',
+                palette: 'palette1',
+                monochrome: {
+                    enabled: false,
+                    color: '#ffffff',
+                    shadeTo: 'light',
+                    shadeIntensity: 0.65
+                }
+            },
+            colors: ["#ffff00"],
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val
+                    }
+                },
+                theme: "dark"
+            }
+        }
+        var chart = new ApexCharts(document.querySelector("#chart3"), options);
+            chart.render();
+    </script>
+    <script>
+    var options = {
+        chart: {
+            height: 380,
+            type: "radialBar",
+        },
+
+        series: ['<%- mData.sentiment_votes_up_percentage %>'],
+        colors: ["#20E647"],
+        plotOptions: {
+            radialBar: {
+                hollow: {
+                    margin: 0,
+                    size: "70%",
+                    background: "#293450"
+                },
+                track: {
+                    dropShadow: {
+                        enabled: true,
+                        top: 2,
+                        left: 0,
+                        blur: 4,
+                        opacity: 0.15
+                    }
+                },
+                dataLabels: {
+                    name: {
+                        offsetY: -10,
+                        color: "#fff",
+                        fontSize: "23px"
+                    },
+                    value: {
+                        color: "#fff",
+                        fontSize: "30px",
+                        show: true
+                    }
+                }
+            }
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                shade: "dark",
+                type: "vertical",
+                gradientToColors: ["#87D4F9"],
+                stops: [0, 100]
+            }
+        },
+        stroke: {
+            lineCap: "round"
+        },
+        labels: ["Positive Sentiments"]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart4"), options);
+        chart.render();
+    </script>
+</body>
+</html>
