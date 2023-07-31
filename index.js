@@ -18,8 +18,7 @@ let mChart = ""
 
 async function resData(coinName) {
   var marketData = await new Promise((resolve,reject) =>{
-    request('https://api.coingecko.com/api/v3/coins/'+ coinName, function (error, response, body) {
-      console.error('error:', error);
+    request('https://api.coingecko.com/api/v3/coins/'+ coinName, function (response, body) {
       console.log('statusCode:', response && response.statusCode);
       console.log('body:', typeof body);
       mData = JSON.parse(body);
@@ -29,8 +28,7 @@ async function resData(coinName) {
 
   if(marketData) {
     var marketChart = await new Promise((resolve,reject) =>{
-      request('https://api.coingecko.com/api/v3/coins/'+coinName +'/market_chart?vs_currency=usd&days=10', function (error, response, body) {
-        console.error('error:', error);
+      request('https://api.coingecko.com/api/v3/coins/'+coinName +'/market_chart?vs_currency=usd&days=10', function (response, body) {
         console.log('statusCode:', response && response.statusCode);
         console.log('body:', typeof body);
         mChart = JSON.parse(body)
